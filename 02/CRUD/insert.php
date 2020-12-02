@@ -22,10 +22,10 @@ try {
   prepareの記述パターン
 */
 // pattern1
-// $stmt = $dbh->prepare("insert into users(name, email, password) values(?, ?, ?)"); // すべてのデータを取得
+// $stmt = $dbh->prepare("insert into users(name, email, password) values(?, ?, ?)"); // データの挿入
 
 // pattern2
-$stmt = $dbh->prepare("insert into users(name, email, password) values(:name, :email, :password)"); // すべてのデータを取得
+$stmt = $dbh->prepare("insert into users(name, email, password) values(:name, :email, :password)"); // データの挿入
 
 
 /* 
