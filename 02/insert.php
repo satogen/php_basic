@@ -1,7 +1,7 @@
 <?php
 /* 
   PHPのデータベースへの接続
-  CRUDのReadの処理
+  CRUDのInsertの処理
 */
 
 // データベースの接続
@@ -16,11 +16,39 @@ try {
   exit;
 }
 
-// 処理
-// prepare関数でエスケープ処理
+
+/* 
+  prepare関数でエスケープ処理
+  prepareの記述パターン
+*/
+// pattern1
+// $stmt = $dbh->prepare("insert into users(name, email, password) values(?, ?, ?)"); // すべてのデータを取得
+
+// pattern2
 $stmt = $dbh->prepare("insert into users(name, email, password) values(:name, :email, :password)"); // すべてのデータを取得
 
-$stmt->execute(array("name" => "e", "email" => "fafa", "password" => "p")); // mysqlを実行
+
+/* 
+  prepare関数でのSQL実行
+  実行の記述パターン
+*/
+// pattern1
+// $stmt->execute(array("name" => "e", "email" => "fafa", "password" => "p")); // mysqlを実行
+
+// pattern2
+$stmt->bindParam(":name", $name);
+$stmt->bindParam(":email", $email);
+$stmt->bindParam(":password", $password);
+
+$name = "n10";
+$email = "e10";
+$password = "p10";
+
+// excute一回に付き、一回実行
+$stmt->execute();
+
+// IDを表示
+echo $dbh->lastInsertId();
 
 echo "done";
 
